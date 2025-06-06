@@ -9,6 +9,11 @@ import { SidebarProvider, SidebarTrigger, useSidebar} from "@/components/ui/side
 import { AppSidebar } from "@/components/app-sidebar";
 import { Main } from "next/document";
 
+// To conditionally set padding
+import { usePathname } from "next/navigation";
+import path from "path";
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,11 +34,23 @@ function MainContent({children}: {children: React.ReactNode}) {
   const {state, isMobile} = useSidebar();
 
   let paddingLeft = "0";
+  let marginTop = "0";
+
+  const pathname = usePathname();
   // Sidebar is an overlay on mobile, so no padding is needed
   if (!isMobile) {
     // Pad more when sidebar is minimized so content is centered properly
     // There's still some padding when sidebar is expanded because it looks better
-    paddingLeft = state === "expanded" ? "3rem" : "15rem";
+    
+    if (pathname === "/shop") { // Shop stuff takes up more space, so it has less padding than home page
+      paddingLeft = state === "expanded" ? "0rem" : "8rem";
+      marginTop = state === "expanded" ? "-1.5rem" : "-2rem";
+    }
+    else { // Should only apply to home page
+      paddingLeft = state === "expanded" ? "3rem" : "15rem";
+      marginTop = "0rem";
+
+    }
   }
 
   return (
@@ -46,7 +63,7 @@ function MainContent({children}: {children: React.ReactNode}) {
                 placed in the header or main content area.
               */}
         <div
-         style={{paddingLeft}}>
+         style={{paddingLeft, marginTop}}>
           {children}
         </div>
         

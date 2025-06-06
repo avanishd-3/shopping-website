@@ -43,11 +43,11 @@ function MainContent({children}: {children: React.ReactNode}) {
     // There's still some padding when sidebar is expanded because it looks better
     
     if (pathname === "/shop") { // Shop stuff takes up more space, so it has less padding than home page
-      paddingLeft = state === "expanded" ? "0rem" : "8rem";
+      paddingLeft = state === "expanded" ? "0rem" : "5.5rem";
       marginTop = state === "expanded" ? "-1.5rem" : "-2rem";
     }
     else { // Should only apply to home page
-      paddingLeft = state === "expanded" ? "3rem" : "15rem";
+      paddingLeft = state === "expanded" ? "4.5rem" : "12.5rem";
       marginTop = "0rem";
 
     }

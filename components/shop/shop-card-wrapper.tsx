@@ -9,6 +9,9 @@ import { Plus, Star } from "lucide-react";
 // Zod for response validation
 import { z } from "zod";
 
+// Client component for adding products to cart
+import AddtoCartButton from "@/components/shop/add-to-cart-button";
+
 export default async function ShopCardWrapper() {
     const ProductSchema = z.array(
       z.object({
@@ -71,14 +74,7 @@ export default async function ShopCardWrapper() {
             <CardContent className="pt-0">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold">${product.price}</span>
-                <Button 
-                //  onClick={() => handleAddToCart(product)}
-                  size="sm"
-                  className="shrink-0 cursor-pointer"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  Add
-                </Button>
+                <AddtoCartButton product={product} />
               </div>
             </CardContent>
           </Card>

@@ -1,0 +1,1 @@
+export const NUM_PRODUCTS_RENDERED = 8;

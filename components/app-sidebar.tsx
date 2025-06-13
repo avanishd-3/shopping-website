@@ -10,6 +10,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
+import { Button } from "@/components/ui/button"
+
 import { Home, ShoppingCartIcon, StoreIcon} from "lucide-react" // Icons
 
 import Link from "next/link"
@@ -28,12 +30,16 @@ const items = [
     },
     {
         title: "Cart",
-        url: "/cart",
+        url: null, // Cart is handled by a sheet instead of a page
         icon: ShoppingCartIcon
     },
 ]
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  onCartClick: () => void;
+}
+
+export function AppSidebar({ onCartClick, ...props }: AppSidebarProps) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarContent>
@@ -44,10 +50,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
+                    {/* Cart opens sheet, so need to handle */}
+                    {item.title === "Cart" ? (
+                      <Button size={"icon"} onClick={onCartClick} style={{justifyContent: "flex-start"}}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Button>
+                    ) : (
+                      <Link href={item.url!}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
-import { useState } from "react";
+import { useState} from "react";
 
 // Sidebar should always be present
 import { SidebarProvider, SidebarTrigger, useSidebar} from "@/components/ui/sidebar";
@@ -15,8 +15,10 @@ import { Main } from "next/document";
 import { usePathname } from "next/navigation";
 import path from "path";
 
-// Cart context
+// Cart stuff
+import { CartItem } from "@/contexts/cart-context";
 import { CartContext } from "@/contexts/cart-context";
+import { CartSheet } from "@/components/cart-sheet";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,18 +60,7 @@ function MainContent({children}: {children: React.ReactNode}) {
     }
   }
 
-  // Cart functionality
-  const [cartItems, setCartItems] = useState<string[]>([]);
-  const addToCart = (item: string) => {
-    setCartItems((prev) => [...prev, item]);
-  };
-
-  const getTotalItems = () => {
-    return cartItems.length;
-  };
-
   return (
-    <CartContext.Provider value={{cartItems, addToCart, getTotalItems}}>
       <div className="transition-all duration-500">
       <main>
         <SidebarTrigger />
@@ -85,7 +76,6 @@ function MainContent({children}: {children: React.ReactNode}) {
         
       </main>
     </div>
-    </CartContext.Provider>
   );
 }
 
@@ -94,17 +84,58 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+  // Manage cart sheet state
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const onCartClick = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  // Cart functionality
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  
+  const addToCart = (item: CartItem) => {
+    setCartItems((prev) => [...prev, item]);
+  };
+
+  const incrementQuantity = (id: number) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const getTotalItems = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider>
-          <AppSidebar />
+        <CartContext.Provider value={{cartItems, addToCart, incrementQuantity, getTotalItems}}>
+          <SidebarProvider>
+            <AppSidebar
+              onCartClick={onCartClick}
+            />
+            {/* Cart Sheet */}
+            <CartSheet
+              isCartOpen={isCartOpen}
+              setIsCartOpen={setIsCartOpen}
+              cartItems={cartItems}
+              getTotalItems={getTotalItems}
+            />
+            {/* Main content area */}
             <MainContent>
               {children}
             </MainContent>
-        </SidebarProvider>
+          </SidebarProvider>
+        </CartContext.Provider>
       </body>
     </html>
   );

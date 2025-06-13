@@ -31,7 +31,7 @@ export default function AddToCartButton({ product } : {
 }) {
 
     // Use cart context to add product to cart
-    const { cartItems, addToCart, getTotalItems } = useContext(CartContext);
+    const { cartItems, addToCart, incrementQuantity, getTotalItems } = useContext(CartContext);
 
     function handleAddToCart() {
     
@@ -39,7 +39,24 @@ export default function AddToCartButton({ product } : {
         console.log("Adding to cart:", product);
 
         // Use cart context to add product to cart
-        addToCart(product.title);
+        const currItem = {
+            id: product.id,
+            price: product.price,
+            title: product.title,
+            quantity: 1, // Default quantity is 1
+        }
+
+        // Check if the item is already in the cart
+        const existingItem = cartItems.find(item => item.id === product.id);
+
+        if (existingItem) {
+            // Update quantity of existing item
+            incrementQuantity(product.id);
+        }
+        else {
+            // Add new item to cart
+            addToCart(currItem);
+        }
 
         // Log the current items in the cart
         console.log("Items in cart:", cartItems);

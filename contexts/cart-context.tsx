@@ -1,9 +1,19 @@
 import { createContext, useContext} from 'react';
 
 // Cart functionality
+
+// Cart item definition
+export type CartItem = {
+  id: number;
+  price: number;
+  title: string;
+  quantity: number;
+};
+
 type CartContextType = {
-  cartItems: string[];
-  addToCart: (item: string) => void;
+  cartItems: CartItem[];
+  addToCart: (item: CartItem) => void;
+  incrementQuantity: (id: number) => void;
   getTotalItems: () => number;
 };
 
@@ -11,6 +21,7 @@ type CartContextType = {
 export const CartContext = createContext<CartContextType>({
   cartItems: [],
   addToCart: () => {},
+  incrementQuantity: () => {},
   getTotalItems: () => 0,
 });
 

@@ -13,6 +13,7 @@ export default async function Shop() {
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Shop</h1>
         <p className="text-muted-foreground">Discover our curated collection of premium products</p>
+        {/* Close button auto closes the toaster after a few seconds */}
         <Toaster position="bottom-right" closeButton richColors/>
       </div>
 

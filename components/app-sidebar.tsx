@@ -52,7 +52,12 @@ export function AppSidebar({ onCartClick, ...props }: AppSidebarProps) {
                   <SidebarMenuButton asChild>
                     {/* Cart opens sheet, so need to handle */}
                     {item.title === "Cart" ? (
-                      <Button size={"icon"} onClick={onCartClick} style={{justifyContent: "flex-start"}}>
+                        <Button
+                        size="icon"
+                        variant="ghost" // Consistent with the rest of the sidebar
+                        onClick={onCartClick}
+                        style={{ justifyContent: "flex-start"}}
+                        >
                         <item.icon />
                         <span>{item.title}</span>
                       </Button>

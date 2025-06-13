@@ -42,9 +42,7 @@ export function CartSheet({
                         item={item}/>
                     ))}
                     {/* Total items and price */}
-
-                    {/* Border-t adds separator line */}
-                    <li className="flex justify-between items-center p-4 border-t font-bold">
+                    <li className="flex justify-between items-center p-4 border-t font-bold"> {/* Border-t adds separator line */}
                     <span>Total Items: {getTotalItems()}</span>
                     <span>Total Price: ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</span>
                     </li>

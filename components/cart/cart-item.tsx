@@ -17,6 +17,8 @@ export function CartItemDisplay({item}: {item: CartItem}) {
     const updateQuantity = useCart().updateQuantity;
     const removeFromCart = useCart().removefromCart;
 
+    const itemTotalPrice = item.price * item.quantity;
+
     return (
         <div className='flex items-center space-y-4'>
             <div className='relative w-16 h-16'>
@@ -31,7 +33,10 @@ export function CartItemDisplay({item}: {item: CartItem}) {
             </div>
             <div className='flex-1 ml-5'>
                 <h2 className='text-lg font-semibold'>{item.title}</h2>
-                <p className='text-sm text-gray-500'>Price: ${item.price.toFixed(2)}</p>
+                {/* Fix total price to 2 decimal places for cents */}
+                {/* Max width 0.5 ensures paragraph is only 1 line long*/}
+                <p className='text-sm text-gray-500 max-w-0.5'>Price: ${item.price}x{item.quantity}=${itemTotalPrice.toFixed(2)}</p>
+                
                 <p className='text-sm text-gray-500'>Quantity: {item.quantity}</p>
             </div>
 

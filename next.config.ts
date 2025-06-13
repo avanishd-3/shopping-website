@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: [
-      "fakestoreapi.com", // For product images
+    remotePatterns: [
+      new URL("https://fakestoreapi.com/img/*"), // Allow all images from fake store API
     ],
   }
 };

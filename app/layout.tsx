@@ -18,7 +18,7 @@ import path from "path";
 // Cart stuff
 import { CartItem } from "@/contexts/cart-context";
 import { CartContext } from "@/contexts/cart-context";
-import { CartSheet } from "@/components/cart-sheet";
+import { CartSheet } from "@/components/cart/cart-sheet";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,15 +95,27 @@ export default function RootLayout({
 
   // Cart functionality
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  
+
   const addToCart = (item: CartItem) => {
     setCartItems((prev) => [...prev, item]);
+  };
+
+  const removefromCart = (id: number) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const incrementQuantity = (id: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const updateQuantity = (id: number, quantity: number) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: quantity } : item
       )
     );
   };
@@ -118,7 +130,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartContext.Provider value={{cartItems, addToCart, incrementQuantity, getTotalItems}}>
+        <CartContext.Provider value={{cartItems, addToCart, removefromCart, incrementQuantity, updateQuantity, getTotalItems}}>
           <SidebarProvider>
             <AppSidebar
               onCartClick={onCartClick}

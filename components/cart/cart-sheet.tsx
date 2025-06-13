@@ -9,6 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { CartItemDisplay } from "./cart-item";
 
 export function CartSheet({
   isCartOpen,
@@ -18,7 +19,7 @@ export function CartSheet({
 }: {
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
-  cartItems: { title: string; price: number; quantity: number }[];
+  cartItems: { id: number; title: string; price: number; quantity: number, image: string}[];
   getTotalItems: () => number;
 }) {
   return (
@@ -36,14 +37,11 @@ export function CartSheet({
                 {cartItems.length > 0 ? (
                 <ul className="space-y-4">
                     {cartItems.map((item, index) => (
-                    <li key={index} className="flex justify-between items-center p-4 border rounded">
-                        <div>
-                        <h2 className="text-lg font-semibold">{item.title}</h2>
-                        <p className="text-sm text-gray-500">Price: ${item.price.toFixed(2)}</p>
-                        </div>
-                        <span className="text-lg font-bold">${(item.price * item.quantity).toFixed(2)}</span>
-                    </li>
+                    <CartItemDisplay
+                        key={item.id}
+                        item={item}/>
                     ))}
+                    {/* Total items and price */}
                     <li className="flex justify-between items-center p-4 border-t font-bold">
                     <span>Total Items: {getTotalItems()}</span>
                     <span>Total Price: ${cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</span>

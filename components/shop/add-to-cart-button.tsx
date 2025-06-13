@@ -43,6 +43,7 @@ export default function AddToCartButton({ product } : {
             id: product.id,
             price: product.price,
             title: product.title,
+            image: product.image, // Assuming product has an image property
             quantity: 1, // Default quantity is 1
         }
 

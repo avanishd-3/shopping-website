@@ -32,7 +32,7 @@ export function CartSheet({
                 </SheetDescription>
             </SheetHeader>
             {/* Cart stuff */}
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto p-4 overflow-y-auto"> {/* Overflow-y-auto adds scrolling */}
                 {/* List out each cart item */}
                 {cartItems.length > 0 ? (
                 <ul className="space-y-4">

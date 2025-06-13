@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
+import { useState } from "react";
+
 // Sidebar should always be present
 import { SidebarProvider, SidebarTrigger, useSidebar} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -13,6 +15,8 @@ import { Main } from "next/document";
 import { usePathname } from "next/navigation";
 import path from "path";
 
+// Cart context
+import { CartContext } from "@/contexts/cart-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +35,7 @@ const geistMono = Geist_Mono({
 
 // Handle dynamic padding based on sidebar state
 function MainContent({children}: {children: React.ReactNode}) {
+
   const {state, isMobile} = useSidebar();
 
   let paddingLeft = "0";
@@ -53,8 +58,19 @@ function MainContent({children}: {children: React.ReactNode}) {
     }
   }
 
+  // Cart functionality
+  const [cartItems, setCartItems] = useState<string[]>([]);
+  const addToCart = (item: string) => {
+    setCartItems((prev) => [...prev, item]);
+  };
+
+  const getTotalItems = () => {
+    return cartItems.length;
+  };
+
   return (
-    <div className="transition-all duration-500">
+    <CartContext.Provider value={{cartItems, addToCart, getTotalItems}}>
+      <div className="transition-all duration-500">
       <main>
         <SidebarTrigger />
         {/*
@@ -69,6 +85,7 @@ function MainContent({children}: {children: React.ReactNode}) {
         
       </main>
     </div>
+    </CartContext.Provider>
   );
 }
 

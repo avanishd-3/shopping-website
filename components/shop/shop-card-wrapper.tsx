@@ -3,6 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 
+// Image
+import Image from "next/image";
+
 // Icons
 import { Plus, Star } from "lucide-react";
 
@@ -46,6 +49,7 @@ export default async function ShopCardWrapper() {
         {parsedProducts.data.map((product) => (
           <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-0 bg-card/50 backdrop-blur">
             <div className="aspect-square overflow-hidden rounded-t-lg">
+              {/* Nextjs image would require fill */}
               <img 
                 src={product.image} 
                 alt={product.title}

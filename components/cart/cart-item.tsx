@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 
 // Icons
-import { Trash, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 // Cart context
 import { useCart } from '@/contexts/cart-context';

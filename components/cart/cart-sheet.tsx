@@ -1,13 +1,10 @@
 // Sheet to open cart
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet"
 import { CartItemDisplay } from "./cart-item";
 
@@ -36,7 +33,7 @@ export function CartSheet({
                 {/* List out each cart item */}
                 {cartItems.length > 0 ? (
                 <ul className="space-y-4">
-                    {cartItems.map((item, index) => (
+                    {cartItems.map((item) => (
                     <CartItemDisplay
                         key={item.id}
                         item={item}/>

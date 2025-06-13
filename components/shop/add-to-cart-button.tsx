@@ -11,7 +11,7 @@ import { Plus } from "lucide-react";
 
 // Cart functionality
 import { useContext } from "react";
-import { CartContext, useCart } from "@/contexts/cart-context";
+import { CartContext } from "@/contexts/cart-context";
 
 // Have client component handle button clicks for shop page (which is a server component)
 
@@ -31,7 +31,7 @@ export default function AddToCartButton({ product } : {
 }) {
 
     // Use cart context to add product to cart
-    const { cartItems, addToCart, incrementQuantity, getTotalItems } = useContext(CartContext);
+    const { cartItems, addToCart, incrementQuantity } = useContext(CartContext);
 
     function handleAddToCart() {
     

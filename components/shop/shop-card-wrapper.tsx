@@ -1,13 +1,8 @@
 // Shadcn UI components
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/sonner";
-
-// Image
-import Image from "next/image";
 
 // Icons
-import { Plus, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 // Zod for response validation
 import { z } from "zod";

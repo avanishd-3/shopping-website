@@ -1,7 +1,7 @@
 "use client"; // Because of use sidebar hook usage
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+// import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { useState} from "react";
@@ -9,11 +9,9 @@ import { useState} from "react";
 // Sidebar should always be present
 import { SidebarProvider, SidebarTrigger, useSidebar} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Main } from "next/document";
 
 // To conditionally set padding
 import { usePathname } from "next/navigation";
-import path from "path";
 
 // Cart stuff
 import { CartItem } from "@/contexts/cart-context";

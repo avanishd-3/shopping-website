@@ -37,10 +37,7 @@ export default async function ShopCardWrapper() {
     if (!parsedProducts.success) {
         console.error("Failed to parse products:", parsedProducts.error);
         return (
-            <div className="container mx-auto px-6 py-12">
-            <h1 className="text-2xl font-bold mb-4">Failed to load products</h1>
-            <pre className="text-red-500">{JSON.stringify(parsedProducts.error.issues, null, 2)}</pre>
-            </div>
+          <h1 className="flex items-center justify-center text-2xl font-bold mb-4">Failed to load products. Try again</h1>
         );
     }
     

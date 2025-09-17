@@ -10,6 +10,9 @@ import { z } from "zod";
 // Client component for adding products to cart
 import AddtoCartButton from "@/components/shop/add-to-cart-button";
 
+// Nextjs image component
+import Image from "next/image";
+
 export default async function ShopCardWrapper() {
     const ProductSchema = z.array(
       z.object({
@@ -43,14 +46,15 @@ export default async function ShopCardWrapper() {
         <>
         {parsedProducts.data.map((product) => (
           <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-0 bg-card/50 backdrop-blur">
-            <div className="aspect-square overflow-hidden rounded-t-lg">
-              {/* Nextjs image would require fill */}
-              <img 
-                src={product.image} 
-                alt={product.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
+            <CardContent className="aspect-square overflow-hidden rounded-t-lg">
+              <Image 
+                  src={product.image} 
+                  alt={product.title}
+                  className="group-hover:scale-105 transition-transform duration-300"
+                  width={300}
+                  height={100}
+                />
+            </CardContent>
             <CardHeader className="pb-3">
               <CardTitle className="text-lg leading-tight line-clamp-2">
                 {product.title}

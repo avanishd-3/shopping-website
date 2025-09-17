@@ -56,7 +56,8 @@ export default async function ShopCardWrapper() {
                 />
             </CardContent>
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg leading-tight line-clamp-2">
+              {/* Min height not needed on mobile, where only 1 product is shown at a time */}
+              <CardTitle className="text-lg leading-tight line-clamp-2 md:min-h-10">
                 {product.title}
               </CardTitle>
               <div className="flex items-center gap-2">

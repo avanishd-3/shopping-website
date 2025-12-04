@@ -31,7 +31,16 @@ export default async function ShopCardWrapper() {
 
     // Fetch products from Fake Store API
     const res = await fetch("https://fakestoreapi.com/products");
-    const products = await res.json();
+    let products;
+
+    try {
+        products = await res.json();
+    } catch (error) {
+        console.error("Failed to fetch products:", error);
+        return (
+          <h1 className="flex items-center justify-center text-2xl font-bold mb-4">Failed to load products. Try again</h1>
+        );
+    }
 
     const parsedProducts = ProductSchema.safeParse(products);
 

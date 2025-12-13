@@ -7,7 +7,6 @@ import { AppSidebar } from "../components/app-sidebar";
 // Cart stuff
 import { CartSheet } from "../components/cart/cart-sheet";
 
-import MainContent from "../components/MainContent.astro";
 import { SidebarProvider } from "../components/ui/sidebar";
 ---
 
@@ -25,19 +24,8 @@ import { SidebarProvider } from "../components/ui/sidebar";
 			<AppSidebar />
 			{/* Cart Sheet */}
 			<CartSheet />
-			{/* Main content area */}
-			<MainContent>
-				<slot />
-			</MainContent>
+			{/* Everything else */}
+			<slot />
 		</SidebarProvider>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

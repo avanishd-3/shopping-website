@@ -24,6 +24,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip"
+import { useStore } from "@nanostores/react"
+import { sidebar } from "../../contexts/sidebar-context"
+import { toggleSidebar } from "../../contexts/sidebar-context"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -32,26 +35,21 @@ const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
-type SidebarContextProps = {
+
+function useSidebar() {
+  return useStore(sidebar);
+}
+
+// React context for sidebar functions and state
+const SidebarContext = React.createContext<{
   state: "expanded" | "collapsed"
   open: boolean
   setOpen: (open: boolean) => void
+  isMobile: boolean
   openMobile: boolean
   setOpenMobile: (open: boolean) => void
-  isMobile: boolean
   toggleSidebar: () => void
-}
-
-const SidebarContext = React.createContext<SidebarContextProps | null>(null)
-
-function useSidebar() {
-  const context = React.useContext(SidebarContext)
-  if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider.")
-  }
-
-  return context
-}
+} | null>(null)
 
 function SidebarProvider({
   defaultOpen = true,
@@ -67,19 +65,22 @@ function SidebarProvider({
   onOpenChange?: (open: boolean) => void
 }) {
   const isMobile = useIsMobile()
+  const sideBarState = useStore(sidebar);
   const [openMobile, setOpenMobile] = React.useState(false)
 
   // This is the internal state of the sidebar.
-  // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(defaultOpen)
-  const open = openProp ?? _open
+  // Use nanostore for open state
+
+  const open = openProp ?? sideBarState?.open ?? defaultOpen
+  
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
       const openState = typeof value === "function" ? value(open) : value
+      sidebar.set({ ...sidebar.get(), open: openState });
       if (setOpenProp) {
         setOpenProp(openState)
       } else {
-        _setOpen(openState)
+        sidebar.set({ ...sidebar.get(), open: openState });
       }
 
       // This sets the cookie to keep the sidebar state.
@@ -111,16 +112,16 @@ function SidebarProvider({
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
-  const state = open ? "expanded" : "collapsed"
+  const state: "expanded" | "collapsed" = open ? "expanded" : "collapsed"
 
-  const contextValue = React.useMemo<SidebarContextProps>(
+  const contextValue = React.useMemo(
     () => ({
       state,
       open,
       setOpen,
       isMobile,
       openMobile,
-      setOpenMobile,
+      setOpenMobile: (value: boolean) => setOpenMobile(value),
       toggleSidebar,
     }),
     [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
@@ -163,7 +164,13 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const $sidebar = useStore(sidebar);
+
+  const setOpenMobile = () => {
+    sidebar.set({ ...$sidebar, open: !$sidebar.open });
+  }
+
+  const openMobile = $sidebar.open;
 
   if (collapsible === "none") {
     return (
@@ -180,7 +187,7 @@ function Sidebar({
     )
   }
 
-  if (isMobile) {
+  if ($sidebar.isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
         <SheetContent
@@ -208,8 +215,8 @@ function Sidebar({
   return (
     <div
       className="group peer text-sidebar-foreground hidden md:block"
-      data-state={state}
-      data-collapsible={state === "collapsed" ? collapsible : ""}
+      data-state={$sidebar.state}
+      data-collapsible={$sidebar.state === "collapsed" ? collapsible : ""}
       data-variant={variant}
       data-side={side}
       data-slot="sidebar"
@@ -258,7 +265,6 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
 
   return (
     <Button
@@ -280,7 +286,6 @@ function SidebarTrigger({
 }
 
 function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
-  const { toggleSidebar } = useSidebar()
 
   return (
     <button

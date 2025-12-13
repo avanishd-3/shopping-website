@@ -1,3 +1,5 @@
+"use client";
+
 // Shadcn UI components
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 
@@ -11,6 +13,7 @@ import { z } from "zod";
 import AddtoCartButton from "./add-to-cart-button";
 
 import { useEffect, useState } from "react";
+import { SkeletonCardGrid } from "../skeleton-card";
 
 export default function ShopCardWrapper() {
     const ProductSchema = z.array(
@@ -61,7 +64,7 @@ export default function ShopCardWrapper() {
     if (!products) {
       console.log("Products not yet loaded");
       return (
-        <h1 className="flex items-center justify-center text-2xl font-bold mb-4">Loading products...</h1>
+        <SkeletonCardGrid/>
       );
     }
     

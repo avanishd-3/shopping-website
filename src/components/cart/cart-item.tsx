@@ -1,0 +1,64 @@
+import type { CartItem } from '../../contexts/cart-context';
+
+// UI components
+import { Input } from '../ui/input';
+
+// Icons
+import { Trash2 } from 'lucide-react';
+
+// Cart context
+import { updateQuantity, removeFromCart } from '../../contexts/cart-context';
+
+
+export function CartItemDisplay({item}: {item: CartItem}) {
+    // Display each cart item with image, title, and price
+
+    const itemTotalPrice = item.price * item.quantity;
+
+    return (
+        <div className='flex items-center space-y-4'>
+            <div className='relative w-16 h-16'>
+                <img
+                 src={item.image}
+                 alt={item.title}
+                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // From Nextjs Image docs
+                 className='object-cover rounded'
+                 loading='lazy' // Defer loading until the image is in view
+                 />
+            </div>
+            <div className='flex-1 ml-5'>
+                <h2 className='text-lg font-semibold'>{item.title}</h2>
+                {/* Fix total price to 2 decimal places for cents */}
+                {/* Max width 0.5 ensures paragraph is only 1 line long*/}
+                <p className='text-sm text-gray-500 max-w-0.5'>Price: ${item.price}x{item.quantity}=${itemTotalPrice.toFixed(2)}</p>
+                
+                <p className='text-sm text-gray-500'>Quantity: {item.quantity}</p>
+            </div>
+
+            {/* Add or remove cart items */}
+            <div className='flex items-center space-x-2'>
+                {/* Add cart items */}
+                <Input
+                    type='number'
+                    value={item.quantity}
+                    onChange={(e) => {
+                        const newValue = parseInt(e.target.value, 10);
+
+                        if (newValue >= 1) {
+                            // Do not allow quantities of 0
+                            updateQuantity(item.id, newValue);
+                        } 
+                    }}
+                    className='w-16 text-center'
+                />
+
+                {/* Remove cart item */}
+                <Trash2
+                 onClick={() => removeFromCart(item.id)}
+                 className='w-6 h-6 text-red-500 cursor-pointer hover:text-red-700 transition-colors'
+                 />
+
+            </div>
+        </div>
+    )
+}

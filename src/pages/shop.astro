@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ShopComponent from "../components/shop/shop"
+
+
+---
+
+<Layout>
+    <!-- Needs this to fetch the products with a useEffect -->
+     <!-- client:load b/c fetching products is high priority -->
+    <ShopComponent client:load/>
+</Layout>

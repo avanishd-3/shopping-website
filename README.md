@@ -1,30 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Astro Starter Kit: Basics
 
-Shopping website template built with React and Next.js that uses:
+```sh
+pnpm create astro@latest -- --template basics
+```
+
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+
+## 🚀 Project Structure
+
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets
+│   │   └── astro.svg
+│   ├── components
+│   │   └── Welcome.astro
+│   ├── layouts
+│   │   └── Layout.astro
+│   └── pages
+│       └── index.astro
+└── package.json
+```
+
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `pnpm install`             | Installs dependencies                            |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm build`           | Build your production site to `./dist/`          |
+| `pnpm preview`         | Preview your build locally, before deploying     |
+| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Info
+
+Shopping website template built with Astro and React that uses:
 - Fake Store API for products
 - Zod for product validation
 - Shadcn UI and Tailwind for styling
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-
-## Deploy on Vercel
-
-The easiest way to deploy is to use [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Reason for Deploying on Vercel
-
-The free tier is more generous than Netlify, and it allows you to use Vercel's image optimization.

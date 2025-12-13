@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+
+// Sidebar should always be present
+import { AppSidebar } from "../components/app-sidebar";
+
+// Cart stuff
+import { CartSheet } from "../components/cart/cart-sheet";
+
+import { SidebarProvider } from "../components/ui/sidebar";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Shopping Website</title>
+	</head>
+	<body>
+		<SidebarProvider>
+			<!-- These need to be client load for cart open to work -->
+			<AppSidebar client:load/>
+			<CartSheet client:load/>
+			{/* Everything else */}
+			<slot />
+		</SidebarProvider>
+	</body>
+</html>

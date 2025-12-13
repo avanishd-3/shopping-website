@@ -1,57 +1,22 @@
 ---
 import "../styles/global.css";
 
-import { useState} from "react";
-
 // Sidebar should always be present
 import { AppSidebar } from "../components/app-sidebar";
 
 // Cart stuff
-import { type CartItem } from "../contexts/cart-context";
-import { CartContext } from "../contexts/cart-context";
 import { CartSheet } from "../components/cart/cart-sheet";
 
 import MainContent from "../components/MainContent.astro";
 import { SidebarProvider } from "../components/ui/sidebar";
+import { isCartOpen } from "../contexts/cart-sheet-state";
+import { useStore } from "@nanostores/react";
 
-// Manage cart sheet state
-const [isCartOpen, setIsCartOpen] = useState(false);
 
+const $isCartOpen = useStore(isCartOpen)
 const onCartClick = () => {
-setIsCartOpen(!isCartOpen);
+  isCartOpen.set(!true);
 };
-
-// Cart functionality
-const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-const addToCart = (item: CartItem) => {
-	setCartItems((prev) => [...prev, item]);
-};
-
-const removefromCart = (id: number) => {
-	setCartItems((prev) => prev.filter((item) => item.id !== id));
-};
-
-const incrementQuantity = (id: number) => {
-	setCartItems((prev) =>
-		prev.map((item) =>
-		item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-		)
-	);
-};
-
-const updateQuantity = (id: number, quantity: number) => {
-	setCartItems((prev) =>
-		prev.map((item) =>
-		item.id === id ? { ...item, quantity: quantity } : item
-		)
-	);
-};
-
-const getTotalItems = () => {
-	return cartItems.reduce((total, item) => total + item.quantity, 0);
-};
-
 ---
 
 <!doctype html>
@@ -64,24 +29,17 @@ const getTotalItems = () => {
 		<title>Shopping Website</title>
 	</head>
 	<body>
-		<CartContext.Provider value={{cartItems, addToCart, removefromCart, incrementQuantity, updateQuantity, getTotalItems}}>
-          <SidebarProvider>
-            <AppSidebar
-              onCartClick={onCartClick}
-            />
-            {/* Cart Sheet */}
-            <CartSheet
-              isCartOpen={isCartOpen}
-              setIsCartOpen={setIsCartOpen}
-              cartItems={cartItems}
-              getTotalItems={getTotalItems}
-            />
-            {/* Main content area */}
-            <MainContent>
-              <slot />
-            </MainContent>
-          </SidebarProvider>
-        </CartContext.Provider>
+		<SidebarProvider>
+		<AppSidebar
+			onCartClick={onCartClick}
+		/>
+		{/* Cart Sheet */}
+		<CartSheet />
+		{/* Main content area */}
+		<MainContent>
+			<slot />
+		</MainContent>
+		</SidebarProvider>
 	</body>
 </html>
 

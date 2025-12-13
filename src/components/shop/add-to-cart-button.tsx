@@ -10,8 +10,8 @@ import { toast } from "sonner";
 import { Plus } from "lucide-react";
 
 // Cart functionality
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart-context";
+import { cartItems, addToCart, incrementQuantity } from "../../contexts/cart-context";
+import { useStore } from "@nanostores/react";
 
 // Have client component handle button clicks for shop page (which is a server component)
 
@@ -31,7 +31,7 @@ export default function AddToCartButton({ product } : {
 }) {
 
     // Use cart context to add product to cart
-    const { cartItems, addToCart, incrementQuantity } = useContext(CartContext);
+    const $cartItems = useStore(cartItems);
 
     function handleAddToCart() {
     
@@ -48,7 +48,7 @@ export default function AddToCartButton({ product } : {
         }
 
         // Check if the item is already in the cart
-        const existingItem = cartItems.find(item => item.id === product.id);
+        const existingItem = $cartItems.find(item => item.id === product.id);
 
         if (existingItem) {
             // Update quantity of existing item
@@ -60,7 +60,7 @@ export default function AddToCartButton({ product } : {
         }
 
         // Log the current items in the cart
-        console.log("Items in cart:", cartItems);
+        console.log("Items in cart:", $cartItems);
 
         // Display toast that product has been added to cart
         // Success notification uses forest green, which doesn't look good on light mode (it's probably worse on dark mode)

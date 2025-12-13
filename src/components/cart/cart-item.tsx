@@ -8,14 +8,11 @@ import { Input } from '../ui/input';
 import { Trash2 } from 'lucide-react';
 
 // Cart context
-import { useCart } from '../../contexts/cart-context';
+import { updateQuantity, removeFromCart } from '../../contexts/cart-context';
 
 
 export function CartItemDisplay({item}: {item: CartItem}) {
     // Display each cart item with image, title, and price
-
-    const updateQuantity = useCart().updateQuantity;
-    const removeFromCart = useCart().removefromCart;
 
     const itemTotalPrice = item.price * item.quantity;
 

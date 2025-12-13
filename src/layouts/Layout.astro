@@ -21,9 +21,9 @@ import { SidebarProvider } from "../components/ui/sidebar";
 	</head>
 	<body>
 		<SidebarProvider>
-			<AppSidebar />
-			{/* Cart Sheet */}
-			<CartSheet />
+			<!-- These need to be client load for cart open to work -->
+			<AppSidebar client:load/>
+			<CartSheet client:load/>
 			{/* Everything else */}
 			<slot />
 		</SidebarProvider>

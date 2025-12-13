@@ -14,7 +14,6 @@ import { Button } from "./ui/button"
 
 import { Home, ShoppingCartIcon, StoreIcon} from "lucide-react" // Icons
 
-import Link from "next/link"
 import { isCartOpen } from "../contexts/cart-sheet-state"
 import { useStore } from "@nanostores/react"
 
@@ -65,10 +64,10 @@ export function AppSidebar() {
                         <span>{item.title}</span>
                       </Button>
                     ) : (
-                      <Link href={item.url!}>
+                      <a href={item.url!}>
                         <item.icon />
                         <span>{item.title}</span>
-                      </Link>
+                      </a>
                     )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>

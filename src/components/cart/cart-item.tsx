@@ -1,5 +1,4 @@
 import type { CartItem } from '../../contexts/cart-context';
-import Image from 'next/image';
 
 // UI components
 import { Input } from '../ui/input';
@@ -19,10 +18,9 @@ export function CartItemDisplay({item}: {item: CartItem}) {
     return (
         <div className='flex items-center space-y-4'>
             <div className='relative w-16 h-16'>
-                <Image
+                <img
                  src={item.image}
                  alt={item.title}
-                 fill // Fill the container
                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // From Nextjs Image docs
                  className='object-cover rounded'
                  loading='lazy' // Defer loading until the image is in view

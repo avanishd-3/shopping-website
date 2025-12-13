@@ -1,6 +1,4 @@
-import { Suspense } from "react";
 import ShopCardWrapper from "./shop-card-wrapper";
-import { SkeletonCardGrid } from "../skeleton-card";
 
 // Toaster
 import { Toaster } from "../ui/sonner";

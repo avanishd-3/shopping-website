@@ -14,8 +14,8 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { usePathname } from "next/navigation";
 
 // Cart stuff
-import { CartItem } from "@/contexts/cart-context";
-import { CartContext } from "@/contexts/cart-context";
+import { CartItem } from "@/astro/src/contexts/cart-context";
+import { CartContext } from "@/astro/src/contexts/cart-context";
 import { CartSheet } from "@/components/cart/cart-sheet";
 
 const geistSans = Geist({

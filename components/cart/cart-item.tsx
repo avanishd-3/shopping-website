@@ -1,4 +1,4 @@
-import { CartItem } from '@/contexts/cart-context';
+import { CartItem } from '@/astro/src/contexts/cart-context';
 import Image from 'next/image';
 
 // UI components
@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Trash2 } from 'lucide-react';
 
 // Cart context
-import { useCart } from '@/contexts/cart-context';
+import { useCart } from '@/astro/src/contexts/cart-context';
 
 
 export function CartItemDisplay({item}: {item: CartItem}) {

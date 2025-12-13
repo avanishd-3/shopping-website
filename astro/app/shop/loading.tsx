@@ -1,7 +1,7 @@
 import { SkeletonCard } from "@/components/skeleton-card"
 
 // Constants
-import { NUM_PRODUCTS_RENDERED } from "@/lib/constants"
+import { NUM_PRODUCTS_RENDERED } from "@/astro/src/lib/constants"
 
 export default function Loading() {
     return (

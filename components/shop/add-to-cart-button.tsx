@@ -11,7 +11,7 @@ import { Plus } from "lucide-react";
 
 // Cart functionality
 import { useContext } from "react";
-import { CartContext } from "@/contexts/cart-context";
+import { CartContext } from "@/astro/src/contexts/cart-context";
 
 // Have client component handle button clicks for shop page (which is a server component)
 

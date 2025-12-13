@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton"
-import { NUM_PRODUCTS_RENDERED } from "@/lib/constants"
+import { NUM_PRODUCTS_RENDERED } from "@/astro/src/lib/constants"
 
 // From shadcn
 export function SkeletonCard() {

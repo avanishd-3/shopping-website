@@ -9,14 +9,6 @@ import { CartSheet } from "../components/cart/cart-sheet";
 
 import MainContent from "../components/MainContent.astro";
 import { SidebarProvider } from "../components/ui/sidebar";
-import { isCartOpen } from "../contexts/cart-sheet-state";
-import { useStore } from "@nanostores/react";
-
-
-const $isCartOpen = useStore(isCartOpen)
-const onCartClick = () => {
-  isCartOpen.set(!true);
-};
 ---
 
 <!doctype html>
@@ -30,9 +22,7 @@ const onCartClick = () => {
 	</head>
 	<body>
 		<SidebarProvider>
-			<AppSidebar
-				onCartClick={onCartClick}
-			/>
+			<AppSidebar />
 			{/* Cart Sheet */}
 			<CartSheet />
 			{/* Main content area */}

@@ -15,6 +15,8 @@ import { Button } from "./ui/button"
 import { Home, ShoppingCartIcon, StoreIcon} from "lucide-react" // Icons
 
 import Link from "next/link"
+import { isCartOpen } from "../contexts/cart-sheet-state"
+import { useStore } from "@nanostores/react"
 
 // Menu items
 const items = [
@@ -35,13 +37,14 @@ const items = [
     },
 ]
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  onCartClick: () => void;
-}
+export function AppSidebar() {
+  const $isCartOpen = useStore(isCartOpen);
 
-export function AppSidebar({ onCartClick, ...props }: AppSidebarProps) {
+  const onCartClick = () => {
+    isCartOpen.set(!$isCartOpen);
+  }
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Minimal Store</SidebarGroupLabel>

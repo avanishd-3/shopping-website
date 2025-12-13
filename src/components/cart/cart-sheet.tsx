@@ -12,15 +12,15 @@ import { useStore } from "@nanostores/react";
 import { isCartOpen } from "../../contexts/cart-sheet-state";
 import { cartItems, getTotalItems } from "../../contexts/cart-context";
 
-const $isCartOpen = useStore(isCartOpen);
-
-const onOpenChange = (open: boolean) => {
-  isCartOpen.set(open);
-}
-
-const $cartItems = useStore(cartItems);
-
 export function CartSheet() {
+  const $isCartOpen = useStore(isCartOpen);
+
+  const onOpenChange = (open: boolean) => {
+    isCartOpen.set(open);
+  }
+
+  const $cartItems = useStore(cartItems);
+
   return (
     <Sheet open={$isCartOpen} onOpenChange={onOpenChange}>
         <SheetContent side="right" className="w-full sm:w-96">

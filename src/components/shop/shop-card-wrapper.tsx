@@ -10,10 +10,9 @@ import { z } from "zod";
 // Client component for adding products to cart
 import AddtoCartButton from "./add-to-cart-button";
 
-// Nextjs image component
-import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default async function ShopCardWrapper() {
+export default function ShopCardWrapper() {
     const ProductSchema = z.array(
       z.object({
         id: z.number(),
@@ -29,34 +28,49 @@ export default async function ShopCardWrapper() {
       })
     );
 
-    // Fetch products from Fake Store API
-    const res = await fetch("https://fakestoreapi.com/products");
-    let products;
+    const [products, setProducts] = useState<z.infer<typeof ProductSchema> | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
-    try {
-        products = await res.json();
-    } catch (error) {
-        console.error("Failed to fetch products:", error);
-        return (
-          <h1 className="flex items-center justify-center text-2xl font-bold mb-4">Failed to load products. Try again</h1>
-        );
+    useEffect(() => {
+      async function fetchProducts() {
+        try {
+          console.log("Fetching products...");
+          const res = await fetch("https://fakestoreapi.com/products");
+          const products = await res.json();
+          const parsedProducts = ProductSchema.safeParse(products);
+          if (!parsedProducts.success) {
+            setError("Failed to load products. Try again");
+            console.error("Failed to parse products:", parsedProducts.error);
+          } else {
+            setProducts(parsedProducts.data);
+          }
+        } catch (err) {
+          setError("Failed to load products. Try again");
+          console.error("Error fetching products:", err);
+        }
+      }
+      fetchProducts();
+    }, []);
+
+    if (error) {
+      return (
+        <h1 className="flex items-center justify-center text-2xl font-bold mb-4">{error}</h1>
+      );
     }
 
-    const parsedProducts = ProductSchema.safeParse(products);
-
-    if (!parsedProducts.success) {
-        console.error("Failed to parse products:", parsedProducts.error);
-        return (
-          <h1 className="flex items-center justify-center text-2xl font-bold mb-4">Failed to load products. Try again</h1>
-        );
+    if (!products) {
+      console.log("Products not yet loaded");
+      return (
+        <h1 className="flex items-center justify-center text-2xl font-bold mb-4">Loading products...</h1>
+      );
     }
     
     return (
         <>
-        {parsedProducts.data.map((product) => (
+        {products.map((product) => (
           <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 border-0 bg-card/50 backdrop-blur">
             <CardContent className="aspect-square overflow-hidden rounded-t-lg">
-              <Image 
+              <img 
                   src={product.image} 
                   alt={product.title}
                   className="group-hover:scale-105 transition-transform duration-300"

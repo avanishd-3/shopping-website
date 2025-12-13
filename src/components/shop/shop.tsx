@@ -5,7 +5,7 @@ import { SkeletonCardGrid } from "../skeleton-card";
 // Toaster
 import { Toaster } from "../ui/sonner";
 
-export default async function ShopComponent() {
+export default function ShopComponent() {
 
     // TODO -> Implement add to cart functionality
     return (

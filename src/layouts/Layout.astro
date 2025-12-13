@@ -30,15 +30,15 @@ const onCartClick = () => {
 	</head>
 	<body>
 		<SidebarProvider>
-		<AppSidebar
-			onCartClick={onCartClick}
-		/>
-		{/* Cart Sheet */}
-		<CartSheet />
-		{/* Main content area */}
-		<MainContent>
-			<slot />
-		</MainContent>
+			<AppSidebar
+				onCartClick={onCartClick}
+			/>
+			{/* Cart Sheet */}
+			<CartSheet />
+			{/* Main content area */}
+			<MainContent>
+				<slot />
+			</MainContent>
 		</SidebarProvider>
 	</body>
 </html>

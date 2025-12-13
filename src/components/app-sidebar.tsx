@@ -8,9 +8,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "./ui/sidebar"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 
 import { Home, ShoppingCartIcon, StoreIcon} from "lucide-react" // Icons
 

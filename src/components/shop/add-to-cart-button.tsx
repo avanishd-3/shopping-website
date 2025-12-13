@@ -1,7 +1,7 @@
 "use client";
 
 // Shadcn UI components
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 
 // Toast notification
 import { toast } from "sonner";
@@ -11,7 +11,7 @@ import { Plus } from "lucide-react";
 
 // Cart functionality
 import { useContext } from "react";
-import { CartContext } from "@/astro/src/contexts/cart-context";
+import { CartContext } from "../../contexts/cart-context";
 
 // Have client component handle button clicks for shop page (which is a server component)
 

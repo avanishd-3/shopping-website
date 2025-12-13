@@ -1,11 +1,11 @@
 import { Suspense } from "react";
-import ShopCardWrapper from "@/components/shop/shop-card-wrapper";
-import { SkeletonCardGrid } from "@/components/skeleton-card";
+import ShopCardWrapper from "./shop-card-wrapper";
+import { SkeletonCardGrid } from "../skeleton-card";
 
 // Toaster
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "../ui/sonner";
 
-export default async function Shop() {
+export default async function ShopComponent() {
 
     // TODO -> Implement add to cart functionality
     return (

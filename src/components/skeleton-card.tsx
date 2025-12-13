@@ -1,11 +1,11 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { NUM_PRODUCTS_RENDERED } from "@/astro/src/lib/constants"
+import { Skeleton } from "./ui/skeleton"
+import { NUM_PRODUCTS_RENDERED } from "../lib/constants"
 
 // From shadcn
 export function SkeletonCard() {
   return (
-    <div className="flex flex-col space-y-3 min-w-[220px]">
-      <Skeleton className="h-[250px] w-full rounded-xl" />
+    <div className="flex flex-col space-y-3 min-w-55">
+      <Skeleton className="h-62.5 w-full rounded-xl" />
       <div className="space-y-2">
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-[80%]" />

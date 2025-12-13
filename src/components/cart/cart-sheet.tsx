@@ -5,7 +5,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet"
+} from "../ui/sheet"
 import { CartItemDisplay } from "./cart-item";
 
 export function CartSheet({

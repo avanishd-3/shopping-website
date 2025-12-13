@@ -1,5 +1,5 @@
 // Shadcn UI components
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 
 // Icons
 import { Star } from "lucide-react";
@@ -8,7 +8,7 @@ import { Star } from "lucide-react";
 import { z } from "zod";
 
 // Client component for adding products to cart
-import AddtoCartButton from "@/components/shop/add-to-cart-button";
+import AddtoCartButton from "./add-to-cart-button";
 
 // Nextjs image component
 import Image from "next/image";

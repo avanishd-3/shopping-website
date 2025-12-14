@@ -35,7 +35,6 @@ export default function AddToCartButton({ product } : {
 
     function handleAddToCart() {
     
-        // TODO -> Add cart functionality
         console.log("Adding to cart:", product);
 
         // Use cart context to add product to cart

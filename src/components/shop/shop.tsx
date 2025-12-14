@@ -5,7 +5,6 @@ import { Toaster } from "../ui/sonner";
 
 export default function ShopComponent() {
 
-    // TODO -> Implement add to cart functionality
     return (
     <div className="container mx-auto py-12 pl-14">
       <div className="mb-8">

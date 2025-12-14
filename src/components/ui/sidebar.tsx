@@ -66,7 +66,14 @@ function SidebarProvider({
 }) {
   const isMobile = useIsMobile()
   const sideBarState = useStore(sidebar);
-  const [openMobile, setOpenMobile] = React.useState(false)
+
+  const openMobile = sideBarState.open;
+  
+  const setOpenMobile = () => {
+    sidebar.set({ ...sideBarState, open: !sideBarState.open });
+  }
+
+  
 
   // This is the internal state of the sidebar.
   // Use nanostore for open state
@@ -91,7 +98,7 @@ function SidebarProvider({
 
   // Helper to toggle the sidebar.
   const toggleSidebar = React.useCallback(() => {
-    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
+    return isMobile ? setOpenMobile() : setOpen((open) => !open)
   }, [isMobile, setOpen, setOpenMobile])
 
   // Adds a keyboard shortcut to toggle the sidebar.
@@ -121,7 +128,7 @@ function SidebarProvider({
       setOpen,
       isMobile,
       openMobile,
-      setOpenMobile: (value: boolean) => setOpenMobile(value),
+      setOpenMobile: () => setOpenMobile(),
       toggleSidebar,
     }),
     [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]

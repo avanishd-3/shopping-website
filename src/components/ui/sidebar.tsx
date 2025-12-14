@@ -40,17 +40,6 @@ function useSidebar() {
   return useStore(sidebar);
 }
 
-// React context for sidebar functions and state
-const SidebarContext = React.createContext<{
-  state: "expanded" | "collapsed"
-  open: boolean
-  setOpen: (open: boolean) => void
-  isMobile: boolean
-  openMobile: boolean
-  setOpenMobile: (open: boolean) => void
-  toggleSidebar: () => void
-} | null>(null)
-
 function SidebarProvider({
   defaultOpen = true,
   open: openProp,
@@ -74,7 +63,6 @@ function SidebarProvider({
   }
 
   
-
   // This is the internal state of the sidebar.
   // Use nanostore for open state
 
@@ -117,25 +105,7 @@ function SidebarProvider({
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [toggleSidebar])
 
-  // We add a state so that we can do data-state="expanded" or "collapsed".
-  // This makes it easier to style the sidebar with Tailwind classes.
-  const state: "expanded" | "collapsed" = open ? "expanded" : "collapsed"
-
-  const contextValue = React.useMemo(
-    () => ({
-      state,
-      open,
-      setOpen,
-      isMobile,
-      openMobile,
-      setOpenMobile: () => setOpenMobile(),
-      toggleSidebar,
-    }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
-  )
-
   return (
-    <SidebarContext.Provider value={contextValue}>
       <TooltipProvider delayDuration={0}>
         <div
           data-slot="sidebar-wrapper"
@@ -155,7 +125,6 @@ function SidebarProvider({
           {children}
         </div>
       </TooltipProvider>
-    </SidebarContext.Provider>
   )
 }
 

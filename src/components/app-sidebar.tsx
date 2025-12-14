@@ -17,16 +17,18 @@ import { Home, ShoppingCartIcon, StoreIcon} from "lucide-react" // Icons
 import { isCartOpen } from "../contexts/cart-sheet-state"
 import { useStore } from "@nanostores/react"
 
+const base = import.meta.env.BASE_URL;
+
 // Menu items
 const items = [
     {
         title: "Home",
-        url: "/",
+        url: `${base}/`,
         icon: Home
     },
     {
         title: "Shop",
-        url: "/shop",
+        url: `${base}/shop`,
         icon: StoreIcon
     },
     {

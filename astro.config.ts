@@ -12,5 +12,5 @@ export default defineConfig({
   },
   integrations: [react()],
   site: "https://avanishd-3.github.io/shopping-website/",
-  base: "/shopping-website/",
+  base: "/shopping-website",
 });
